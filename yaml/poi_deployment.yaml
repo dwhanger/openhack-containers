@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: tripinsights-poi
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: tripinsights-poi
@@ -17,7 +17,7 @@ spec:
         image: registryaux6520.azurecr.io/tripinsights/poi:1.0
         envFrom:
         - secretRef:
-          name: dev-db
+            name: dev-db
         resources:
           requests:
             cpu: 100m
