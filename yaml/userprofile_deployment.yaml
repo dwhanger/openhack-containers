@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripinsights-userprofile
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tripinsights-userprofile
+  template:
+    metadata:
+      labels:
+        app: tripinsights-userprofile
+    spec:
+      containers:
+      - name: tripinsights-userprofile
+        image: registryaux6520.azurecr.io/tripinsights/userprofile:1.0
+        envFrom:
+        - secretRef:
+            name: dev-db
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+          name: userprofile
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripinsights-userprofile
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: tripinsights-userprofile
