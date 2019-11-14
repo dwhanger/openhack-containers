@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripinsights-user-java
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tripinsights-user-java
+  template:
+    metadata:
+      labels:
+        app: tripinsights-user-java
+    spec:
+      containers:
+      - name: tripinsights-user-java
+        image: registryaux6520.azurecr.io/tripinsights/user-java:1.0
+        envFrom:
+        - secretRef:
+            name: dev-db
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+          name: user-java
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripinsights-user-java
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: tripinsights-user-java
