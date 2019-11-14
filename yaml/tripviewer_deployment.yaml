@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tripinsights-tripviewer
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tripinsights-tripviewer
+  template:
+    metadata:
+      labels:
+        app: tripinsights-tripviewer
+    spec:
+      containers:
+      - name: tripinsights-tripviewer
+        image: registryaux6520.azurecr.io/tripinsights/tripviewer:1.0
+        envFrom:
+        - secretRef:
+            name: dev-db
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+          name: tripviewer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tripinsights-tripviewer
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: tripinsights-tripviewer
