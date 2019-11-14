@@ -15,6 +15,11 @@ spec:
       containers:
       - name: tripinsights-tripviewer
         image: registryaux6520.azurecr.io/tripinsights/tripviewer:1.0
+        env:
+        - name: TRIPS_API_ENDPOINT
+          value: "http://tripinsights-trips:80"
+        - name: USER_API_ENDPOINT
+          value: "http://tripinsights-userprofile:80"
         envFrom:
         - secretRef:
             name: dev-db
