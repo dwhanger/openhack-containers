@@ -22,6 +22,16 @@ The application used for this event is a heavily modified and recreated version 
 | `CODE_OF_CONDUCT.md` | Code of conduct.                        |
 | `LICENSE`         | The license for the sample.                |
 
+## DockerFile Mapping
+
+| DockerFile       | Description                                |
+|-------------------|-----------------------|
+| Dockerfile_0      | src/user-java         |
+| Dockerfile_1      | src/tripviewer        |
+| Dockerfile_2      | src/userprofile       |
+| Dockerfile_3      | src/poi               |
+| Dockerfile_4      | src/trips             |
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
