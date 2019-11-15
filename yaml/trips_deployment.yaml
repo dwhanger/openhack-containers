@@ -17,9 +17,6 @@ spec:
       containers:
       - name: tripinsights-trips
         image: registryaux6520.azurecr.io/tripinsights/trips:1.0
-        envFrom:
-        - secretRef:
-            name: dev-db
         resources:
           requests:
             cpu: 100m
@@ -34,8 +31,6 @@ spec:
       - name: test
         flexVolume:
           driver: "azure/kv"
-          secretRef:
-            name: kvcreds
           options: 
             usevmmanagedidentity: "true"
             keyvaultname: "team6-Vault"
