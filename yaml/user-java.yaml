@@ -17,7 +17,7 @@ spec:
         image: registryaux6520.azurecr.io/tripinsights/user-java:1.0
         volumeMounts:
         - name: test
-          mountPath: /kvmnt
+          mountPath: /secrets
           readOnly: true
         resources:
           requests:
