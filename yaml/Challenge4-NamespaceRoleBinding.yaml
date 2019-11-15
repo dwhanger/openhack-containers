@@ -1,0 +1,27 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: api-dev-rolebinding
+  namespace: api-dev
+subjects:
+- kind: Group
+  name: 790c513f-8308-4734-858d-72e0c4ef6b55
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: web-dev-rolebinding
+  namespace: web-dev
+subjects:
+- kind: Group
+  name: ee0d8796-c271-4afe-b85e-c090f8a1556e
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: edit
+  apiGroup: rbac.authorization.k8s.io
+ 
