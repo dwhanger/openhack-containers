@@ -12,6 +12,7 @@ helm install  team6-nginx stable/nginx-ingress \
     --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
     --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux
 
+kubectl get service -l app=nginx-ingress --namespace ingress-basic
 
 kubectl apply -f yaml/tripinsights-ingress-web-dev.yaml
 kubectl apply -f yaml/tripinsights-ingress-api-dev.yaml
