@@ -33,8 +33,6 @@ spec:
       - name: test
         flexVolume:
           driver: "azure/kv"
-          secretRef:
-            name: kvcreds
           options: 
             usevmmanagedidentity: "true"
             keyvaultname: "team6-Vault"

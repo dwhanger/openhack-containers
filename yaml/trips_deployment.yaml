@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: tripinsights-trips
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: tripinsights-trips
@@ -30,6 +30,22 @@ spec:
         ports:
         - containerPort: 80
           name: trips
+      volumes:
+      - name: test
+        flexVolume:
+          driver: "azure/kv"
+          secretRef:
+            name: kvcreds
+          options: 
+            usevmmanagedidentity: "true"
+            keyvaultname: "team6-Vault"
+            keyvaultobjectnames: SQL-USER;SQL-PASSWORD;SQL-SERVER;SQL-DBNAME    # list of KeyVault object names (semi-colon separated)
+            keyvaultobjectaliases: "SQL_USER;SQL_PASSWORD;SQL_SERVER;SQL_DBNAME"      # [OPTIONAL] list of KeyVault object aliases
+            keyvaultobjecttypes: secret;secret;secret;secret  # list of KeyVault object types: secret, key or cert (semi-colon separated)
+            keyvaultobjectversions: ""     # [OPTIONAL] list of KeyVault object versions (semi-colon separated), will get latest if empty
+            resourcegroup: "teamResources"              # [REQUIRED FOR < v0.0.14] the resource group of the KeyVault
+            subscriptionid: "3a859018-0a49-43f0-91f1-d33864d28a24"             # [REQUIRED FOR < v0.0.14] the subscription ID of the KeyVault
+            tenantid: "2a6a5f9f-9417-4343-9763-423413558884"                   # the tenant ID of the KeyVault          
 ---
 apiVersion: v1
 kind: Service
