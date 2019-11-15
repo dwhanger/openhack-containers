@@ -17,11 +17,7 @@ spec:
         image: registryaux6520.azurecr.io/tripinsights/tripviewer:1.0
         env:
         - name: TRIPS_API_ENDPOINT
-<<<<<<< HEAD
-          value: "http://tripinsights-trip:80"
-=======
           value: "http://tripinsights-trips:80"
->>>>>>> 6a0d7785c42fd2c52e81df36ea9a7076c3b49bb3
         - name: USER_API_ENDPOINT
           value: "http://tripinsights-userprofile:80"
         envFrom:
