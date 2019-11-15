@@ -17,10 +17,9 @@ spec:
         image: registryaux6520.azurecr.io/tripinsights/tripviewer:1.0
         env:
         - name: TRIPS_API_ENDPOINT
-          value: "http://tripinsights-trips:80"
+          value: "http://tripinsights-trips.api-dev:80"
         - name: USER_API_ENDPOINT
-          value: "http://tripinsights-userprofile:80"
-        envFrom:
+          value: "http://tripinsights-userprofile.api-dev:80"
         resources:
           requests:
             cpu: 100m
@@ -31,38 +30,6 @@ spec:
         ports:
         - containerPort: 80
           name: tripviewer
-    spec:
-      containers:
-      - name: tripinsights-tripviewer
-        image: registryaux6520.azurecr.io/tripinsights/tripviewer:1.0
-        volumeMounts:
-        - name: test
-          mountPath: /secrets
-          readOnly: true
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
-        ports:
-        - containerPort: 80
-          name: tripviewer
-      volumes:
-      - name: test
-        flexVolume:
-          driver: "azure/kv"
-          options: 
-            usevmmanagedidentity: "true"
-            keyvaultname: "team6-Vault"
-            keyvaultobjectnames: SQL-USER;SQL-PASSWORD;SQL-SERVER;SQL-DBNAME    # list of KeyVault object names (semi-colon separated)
-            keyvaultobjectaliases: "SQL_USER;SQL_PASSWORD;SQL_SERVER;SQL_DBNAME"      # [OPTIONAL] list of KeyVault object aliases
-            keyvaultobjecttypes: secret;secret;secret;secret  # list of KeyVault object types: secret, key or cert (semi-colon separated)
-            keyvaultobjectversions: ""     # [OPTIONAL] list of KeyVault object versions (semi-colon separated), will get latest if empty
-            resourcegroup: "teamResources"              # [REQUIRED FOR < v0.0.14] the resource group of the KeyVault
-            subscriptionid: "3a859018-0a49-43f0-91f1-d33864d28a24"             # [REQUIRED FOR < v0.0.14] the subscription ID of the KeyVault
-            tenantid: "2a6a5f9f-9417-4343-9763-423413558884"                   # the tenant ID of the KeyVault
 ---
 apiVersion: v1
 kind: Service
